@@ -32,6 +32,11 @@ namespace AcmeRaffle
                     Configuration.GetConnectionString("IdentityConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<IdentityDbContext>();
+
+            services.AddDbContext<RaffleDbContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("RaffleConnection")));
+
             services.AddControllersWithViews();
            services.AddRazorPages();
         }

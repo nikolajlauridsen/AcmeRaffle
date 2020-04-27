@@ -23,6 +23,14 @@ namespace AcmeRaffle.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Submit([Bind("FirstName,LastName,Email,SoldProduct")] RaffleEntry entry)
+        {
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
@@ -11,9 +12,11 @@ namespace AcmeRaffle.Models
         public int RaffleEntryId { get; set; }
 
         [Required]
+        [DisplayName("First name")]
         public string FirstName { get; set; }
 
         [Required]
+        [DisplayName("Last name")]
         public string LastName { get; set; }
 
         [Required]

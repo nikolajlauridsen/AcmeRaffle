@@ -12,8 +12,15 @@ namespace RaffleLogic.Services
         public bool ValidateEntry(IQueryable<SoldProduct> products,
             IQueryable<RaffleEntry> entries, RaffleEntry entry)
         {
+            if (products.Any(p => p.SerialNumber == entry.SoldProduct.SerialNumber))
+            {
+                if (entries.Count(e => e.SoldProduct.SerialNumber == entry.SoldProduct.SerialNumber) < 2)
+                {
+                    return true;
+                }
+            }
             
-            return true;
+            return false;
         }
     }
 }

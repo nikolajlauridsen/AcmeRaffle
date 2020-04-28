@@ -32,6 +32,14 @@ namespace AcmeRaffle.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Entries()
+        {
+            List<RaffleEntry> entries = await _context.Entries
+                .Include(e => e.SoldProduct).ToListAsync();
+
+            return View(entries);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)

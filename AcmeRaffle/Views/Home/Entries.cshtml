@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RaffleLogic.Models.RaffleEntry>
+@{
+    ViewData["Title"] = "Entries";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Entries</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SoldProduct.SerialNumber)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var entry in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => entry.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => entry.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => entry.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => entry.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => entry.SoldProduct.SerialNumber)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

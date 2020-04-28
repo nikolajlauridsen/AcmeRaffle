@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RaffleLogic.Models;
 using AcmeRaffle.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using RaffleLogic.Services;
 using Newtonsoft.Json;
@@ -32,6 +33,7 @@ namespace AcmeRaffle.Controllers
             return View();
         }
 
+        [Authorize(Roles = "RaffleManager")]
         public async Task<IActionResult> Entries()
         {
             List<RaffleEntry> entries = await _context.Entries

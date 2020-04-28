@@ -1,0 +1,7 @@
+﻿@if (User.IsInRole("RaffleManager"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" 
+           asp-controller="Home" asp-action="Entries">Raffle Entries</a>
+    </li>
+}

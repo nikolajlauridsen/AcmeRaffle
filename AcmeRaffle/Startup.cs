@@ -31,18 +31,22 @@ namespace AcmeRaffle
                 options.UseSqlite(
                     Configuration.GetConnectionString("IdentityConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>();
 
             services.AddDbContext<RaffleDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("RaffleConnection")));
 
+            //services.AddAuthorization(options =>
+            //    options.AddPolicy("RaffleAccess", policy => policy.RequireRole("RaffleManager")));
+
             services.AddControllersWithViews();
-           services.AddRazorPages();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +66,7 @@ namespace AcmeRaffle
 
             app.UseAuthentication();
             app.UseAuthorization();
+            CreateRoles(serviceProvider).Wait();
 
             app.UseEndpoints(endpoints =>
             {
@@ -70,6 +75,28 @@ namespace AcmeRaffle
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            UserManager<IdentityUser> userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            string roleName = "RaffleManager";
+
+            // Create admin role
+            bool roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExist)
+            {
+                await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
+
+            // Create a default admin account
+            // Check that it's not already created
+            IdentityUser defaultAdmin = await userManager.FindByEmailAsync("admin@user.com");
+            if (defaultAdmin != null)
+            {
+                await userManager.AddToRoleAsync(defaultAdmin, roleName);
+            }
         }
     }
 }

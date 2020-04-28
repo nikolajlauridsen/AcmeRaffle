@@ -37,7 +37,12 @@ namespace AcmeRaffle.Controllers
         [HttpPost]
         public async Task<ActionResult<RaffleEntry>> PostRaffleEntry([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)
         {
-            
+
+            if (!ModelState.IsValid)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest);
+            }
+
             bool validEntry = _validator.ValidateEntry(_context.SoldProducts.AsQueryable(),
                              _context.Entries.AsQueryable(), entry);
             if (validEntry)

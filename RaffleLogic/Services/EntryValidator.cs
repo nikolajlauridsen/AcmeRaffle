@@ -7,7 +7,7 @@ using RaffleLogic.Models;
 
 namespace RaffleLogic.Services
 {
-    public class EntryValidator
+    public class EntryValidator : IEntryValidator
     {
         /*
          * It's suboptimal that this isn't async, however, microsoft states:

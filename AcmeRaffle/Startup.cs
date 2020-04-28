@@ -12,6 +12,7 @@ using AcmeRaffle.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RaffleLogic.Services;
 
 namespace AcmeRaffle
 {
@@ -38,8 +39,7 @@ namespace AcmeRaffle
                 options.UseSqlite(
                     Configuration.GetConnectionString("RaffleConnection")));
 
-            //services.AddAuthorization(options =>
-            //    options.AddPolicy("RaffleAccess", policy => policy.RequireRole("RaffleManager")));
+            services.AddScoped<IEntryValidator, EntryValidator>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -17,21 +17,13 @@ namespace AcmeRaffle.Controllers
     public class RaffleApiController : ControllerBase
     {
         private readonly RaffleDbContext _context;
-        private readonly EntryValidator _validator;
+        private readonly IEntryValidator _validator;
 
-        public RaffleApiController(RaffleDbContext context)
+        public RaffleApiController(RaffleDbContext context, IEntryValidator validator)
         {
             _context = context;
-            _validator = new EntryValidator();
+            _validator = validator;
         }
-
-        //// GET: api/RaffleApi
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<RaffleEntry>>> GetEntries()
-        //{
-        //    return await _context.Entries.ToListAsync();
-        //}
-
 
         // POST: api/RaffleApi
         [HttpPost]

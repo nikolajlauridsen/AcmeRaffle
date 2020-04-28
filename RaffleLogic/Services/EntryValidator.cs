@@ -9,6 +9,12 @@ namespace RaffleLogic.Services
 {
     public class EntryValidator
     {
+        /*
+         * It's suboptimal that this isn't async, however, microsoft states:
+         * EF Core doesn't support multiple parallel operations being run on the same context instance.
+         * You should always wait for an operation to complete before beginning the next operation.
+         * So how to get around this? 
+         */
         public bool ValidateEntry(IQueryable<SoldProduct> products,
             IQueryable<RaffleEntry> entries, RaffleEntry entry)
         {

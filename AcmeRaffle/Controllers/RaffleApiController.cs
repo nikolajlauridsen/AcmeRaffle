@@ -47,7 +47,7 @@ namespace AcmeRaffle.Controllers
 
                 return StatusCode((int)HttpStatusCode.OK);
             }
-
+            
             return StatusCode((int) HttpStatusCode.BadRequest);
         }
 

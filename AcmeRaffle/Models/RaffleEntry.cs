@@ -20,6 +20,10 @@ namespace AcmeRaffle.Models
         public string LastName { get; set; }
 
         [Required]
+        [Range(18, 200, ErrorMessage = "You must be 18 or older to enter this raffle.")]
+        public int Age { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

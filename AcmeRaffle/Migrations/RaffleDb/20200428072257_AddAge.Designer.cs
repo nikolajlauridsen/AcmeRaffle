@@ -3,14 +3,16 @@ using System;
 using AcmeRaffle.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AcmeRaffle.Migrations.RaffleDb
 {
     [DbContext(typeof(RaffleDbContext))]
-    partial class RaffleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200428072257_AddAge")]
+    partial class AddAge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

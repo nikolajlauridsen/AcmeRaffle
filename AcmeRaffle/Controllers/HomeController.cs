@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using AcmeRaffle.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ using RaffleLogic.Models;
 using AcmeRaffle.Models;
 using Microsoft.EntityFrameworkCore;
 using RaffleLogic.Services;
+using Newtonsoft.Json;
 
 namespace AcmeRaffle.Controllers
 {
@@ -33,9 +36,13 @@ namespace AcmeRaffle.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)
         {
-            EntryValidator validator = new EntryValidator();
-            bool valid = validator.ValidateEntry(_context.SoldProducts.AsQueryable(),
-                _context.Entries.AsQueryable(), entry);
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44317/api/RaffleApi");
+            request.Content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                await client.SendAsync(request);
+            }
             return RedirectToAction("Index");
         }
 

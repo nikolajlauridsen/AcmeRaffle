@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace AcmeRaffle.Models
+namespace RaffleLogic.Models
 {
     public class RaffleEntry
     {
@@ -22,8 +21,8 @@ namespace AcmeRaffle.Models
         [Required]
         [Range(18, 200, ErrorMessage = "You must be 18 or older to enter this raffle.")]
         public int Age { get; set; }
-
         [Required]
+
         [EmailAddress]
         public string Email { get; set; }
 

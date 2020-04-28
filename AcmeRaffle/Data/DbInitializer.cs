@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AcmeRaffle.Models;
+using RaffleLogic.Models;
 using System.IO;
 
 namespace AcmeRaffle.Data

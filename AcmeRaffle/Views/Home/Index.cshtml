@@ -5,17 +5,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-@section Styles
-{
-    <link rel="stylesheet" href="~/css/raffleForm.css"/>
-}
-
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Acme Corporation raffle!</h1>
+    <p>Enter by simply filling out the form below with your information, 
+        and a serial number from one of the products you've purchased from us</p>
 </div>
 
-<script src="lib/jquery/dist/jquery.js"></script>
+<br/>
+<br/>
 
 <div class="row">
     <div class="col-md-3"></div>
@@ -73,7 +70,7 @@
             </div>
         </form>
     </div>
-    
+
     <div class="card overlay">
         <div class="card-body">
             Submitting entry
@@ -84,44 +81,14 @@
     <div class="col-md-3"></div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('#submissionForm').submit(function (e) {
-            e.preventDefault();
-            $('#submitBtn').prop("disabled", true);
-            $('.overlay').show();
-            var data = {
-                'FirstName': $('#firstName').val(),
-                'LastName': $('#lastName').val(),
-                'Age': parseInt($('#age').val()),
-                'Email': $('#email').val(),
-                'SoldProduct': {
-                    'SerialNumber': $('#serialNumber').val()
-                }
-            }
-            console.log(JSON.stringify(data));
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("PostRaffleEntry", "RaffleApi")',
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function (data) {
-                    alert("Form successfully posted.");
-                    $('#submitBtn').prop("disabled", false);
-                    $('.overlay').hide();
-                },
-                error: function (e) {
-                    alert("Form posting failed.");
-                    $('#submitBtn').prop("disabled", false);
-                    $('.overlay').hide();
-                }
-            });
-        });
-    })
-</script>
-
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/raffleForm.css" />
+}
 
 @section Scripts
 {
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/raffleSubmision.js"></script>
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

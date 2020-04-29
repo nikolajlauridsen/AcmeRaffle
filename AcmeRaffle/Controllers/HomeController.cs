@@ -12,7 +12,7 @@ using RaffleLogic.Models;
 using AcmeRaffle.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using RaffleLogic.Services;
+using PaginatedList;
 using Newtonsoft.Json;
 
 namespace AcmeRaffle.Controllers
@@ -34,10 +34,13 @@ namespace AcmeRaffle.Controllers
         }
 
         [Authorize(Roles = "RaffleManager")]
-        public async Task<IActionResult> Entries()
+        public async Task<IActionResult> Entries(int? pageNumber)
         {
-            List<RaffleEntry> entries = await _context.Entries
-                .Include(e => e.SoldProduct).ToListAsync();
+            int pageSize = 10;
+
+            PaginatedList<RaffleEntry> entries = await PaginatedList<RaffleEntry>.CreateAsync(
+                _context.Entries.Include(e => e.SoldProduct).AsNoTracking(),
+                pageNumber ?? 1, pageSize);
 
             return View(entries);
         }

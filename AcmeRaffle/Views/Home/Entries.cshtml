@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RaffleLogic.Models.RaffleEntry>
+﻿@model PaginatedList.PaginatedList<RaffleLogic.Models.RaffleEntry>
 @{
     ViewData["Title"] = "Entries";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,42 +10,61 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.FirstName)
+                @Html.DisplayNameFor(m => m[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.LastName)
+                @Html.DisplayNameFor(m => m[0].LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Email)
+                @Html.DisplayNameFor(m => m[0].Email)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Age)
+                @Html.DisplayNameFor(m => m[0].Age)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.SoldProduct.SerialNumber)
+                @Html.DisplayNameFor(m => m[0].SoldProduct.SerialNumber)
             </th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var entry in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => entry.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => entry.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => entry.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => entry.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => entry.SoldProduct.SerialNumber)
-            </td>
-        </tr>
-    }
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => entry.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => entry.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => entry.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => entry.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => entry.SoldProduct.SerialNumber)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<p>
+    Page @Model.PageIndex of @(Model.TotalPages > 0 ? Model.TotalPages : 1)
+</p>
+
+<a asp-action="Entries" asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Entries" asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

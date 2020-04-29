@@ -1,7 +1,13 @@
-﻿@model RaffleLogic.Models.RaffleEntry
+﻿
+@model RaffleLogic.Models.RaffleEntry
 
 @{
     ViewData["Title"] = "Home Page";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/raffleForm.css"/>
 }
 
 <div class="text-center">
@@ -21,7 +27,7 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.FirstName,
-                    new { htmlAttributes = new { @class = "form-control", id="firstName" } })
+                    new { htmlAttributes = new { @class = "form-control", id = "firstName" } })
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
@@ -30,16 +36,16 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.LastName,
-                    new { htmlAttributes = new { @class = "form-control", id="lastName" } })
+                    new { htmlAttributes = new { @class = "form-control", id = "lastName" } })
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            
+
             <div clas="form-group">
                 @Html.LabelFor(model => model.Age,
-                    new {htmlAttributes = new {@class = "control-label"}})
+                    new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.Age,
-                    new{htmlAttributes = new{@class = "form-control", id="age"}})
+                    new { htmlAttributes = new { @class = "form-control", id = "age" } })
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
 
@@ -48,7 +54,7 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.Email,
-                    new { htmlAttributes = new { @class = "form-control", id="email" } })
+                    new { htmlAttributes = new { @class = "form-control", id = "email" } })
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
@@ -57,43 +63,61 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.SoldProduct.SerialNumber,
-                    new { htmlAttributes = new { @class = "form-control", id="serialNumber" } })
+                    new { htmlAttributes = new { @class = "form-control", id = "serialNumber" } })
 
                 <span asp-validation-for="SoldProduct.SerialNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Submit entry" class="btn btn-primary" />
+                <input type="submit" id="submitBtn" value="Submit entry" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    
+    <div class="card overlay">
+        <div class="card-body">
+            Submitting entry
+            <div class="spinner-border text-primary float-right" role="status"></div>
+        </div>
+    </div>
+
     <div class="col-md-3"></div>
 </div>
 
 <script>
-    $('#submissionForm').submit(function (e) {
-        e.preventDefault();
-        var data = {
-            'FirstName': $('#firstName').val(),
-            'LastName': $('#lastName').val(),
-            'Age': parseInt($('#age').val()),
-            'Email': $('#email').val(),
-            'SoldProduct': {
-                'SerialNumber': $('#serialNumber').val()
+    $(document).ready(function() {
+        $('#submissionForm').submit(function (e) {
+            e.preventDefault();
+            $('#submitBtn').prop("disabled", true);
+            $('.overlay').show();
+            var data = {
+                'FirstName': $('#firstName').val(),
+                'LastName': $('#lastName').val(),
+                'Age': parseInt($('#age').val()),
+                'Email': $('#email').val(),
+                'SoldProduct': {
+                    'SerialNumber': $('#serialNumber').val()
+                }
             }
-        }
-        console.log(JSON.stringify(data));
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("PostRaffleEntry", "RaffleApi")',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            contentType: "application/json",
-            error: function(e) {
-                debugger;
-            }
+            console.log(JSON.stringify(data));
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PostRaffleEntry", "RaffleApi")',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (data) {
+                    alert("Form successfully posted.");
+                    $('#submitBtn').prop("disabled", false);
+                    $('.overlay').hide();
+                },
+                error: function (e) {
+                    alert("Form posting failed.");
+                    $('#submitBtn').prop("disabled", false);
+                    $('.overlay').hide();
+                }
+            });
         });
-    });
+    })
 </script>
 
 

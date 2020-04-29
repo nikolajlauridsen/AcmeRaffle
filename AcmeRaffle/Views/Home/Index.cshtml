@@ -9,17 +9,19 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<script src="lib/jquery/dist/jquery.js"></script>
+
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form asp-action="Submit">
+        <form id="submissionForm" action="" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName,
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.FirstName,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control", id="firstName" } })
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
@@ -28,7 +30,7 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.LastName,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control", id="lastName" } })
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             
@@ -37,7 +39,7 @@
                     new {htmlAttributes = new {@class = "control-label"}})
 
                 @Html.EditorFor(model => model.Age,
-                    new{htmlAttributes = new{@class = "form-control"}})
+                    new{htmlAttributes = new{@class = "form-control", id="age"}})
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
 
@@ -46,7 +48,7 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.Email,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control", id="email" } })
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
@@ -55,7 +57,7 @@
                     new { htmlAttributes = new { @class = "control-label" } })
 
                 @Html.EditorFor(model => model.SoldProduct.SerialNumber,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control", id="serialNumber" } })
 
                 <span asp-validation-for="SoldProduct.SerialNumber" class="text-danger"></span>
             </div>
@@ -67,6 +69,32 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+
+<script>
+    $('#submissionForm').submit(function (e) {
+        e.preventDefault();
+        var data = {
+            'FirstName': $('#firstName').val(),
+            'LastName': $('#lastName').val(),
+            'Age': parseInt($('#age').val()),
+            'Email': $('#email').val(),
+            'SoldProduct': {
+                'SerialNumber': $('#serialNumber').val()
+            }
+        }
+        console.log(JSON.stringify(data));
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PostRaffleEntry", "RaffleApi")',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: "application/json",
+            error: function(e) {
+                debugger;
+            }
+        });
+    });
+</script>
 
 
 @section Scripts

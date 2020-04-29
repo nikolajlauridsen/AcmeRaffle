@@ -69,6 +69,21 @@
                 <input type="submit" id="submitBtn" value="Submit entry" class="btn btn-primary" />
             </div>
         </form>
+        
+        <div class="alert alert-success" id="successAlert" role="alert" style="display: none">
+            You've successfully entered the raffle
+            <button type="button" class="close" aria-label="Close" onclick="closeSuccess()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger" id="failureAlert" role="alert" style="display: none">
+            Invalid form submission
+            <button type="button" class="close" aria-label="Close" onclick="closeFailure()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
     </div>
 
     <div class="card overlay">

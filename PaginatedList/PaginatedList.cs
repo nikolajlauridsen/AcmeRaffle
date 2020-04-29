@@ -25,9 +25,9 @@ namespace PaginatedList
         public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
         {
             // Find the amount of items in the source
-            int count = await new Task<int>(source.Count);
+            int count = await Task.Run(source.Count);
             // Skip to the desired page and take a page
-            List<T> items = await new Task<List<T>>((() => 
+            List<T> items = await Task.Run((() => 
                 source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList()));
             
             return new PaginatedList<T>(items, count, pageIndex, pageSize);

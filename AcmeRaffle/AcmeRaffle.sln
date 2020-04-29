@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcmeRaffle", "AcmeRaffle.csproj", "{6E6BEB9C-3471-43DA-96D0-8BE289939CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaffleLogic", "..\RaffleLogic\RaffleLogic.csproj", "{84129404-5092-4FED-B05B-B9F1AFB351AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaffleLogic", "..\RaffleLogic\RaffleLogic.csproj", "{84129404-5092-4FED-B05B-B9F1AFB351AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaginatedList", "..\PaginatedList\PaginatedList.csproj", "{5524053A-1D86-4764-A973-7911F43450F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{84129404-5092-4FED-B05B-B9F1AFB351AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84129404-5092-4FED-B05B-B9F1AFB351AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84129404-5092-4FED-B05B-B9F1AFB351AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5524053A-1D86-4764-A973-7911F43450F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5524053A-1D86-4764-A973-7911F43450F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5524053A-1D86-4764-A973-7911F43450F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5524053A-1D86-4764-A973-7911F43450F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

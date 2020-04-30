@@ -8,7 +8,10 @@ namespace AcmeTests
 {
     public class ModelTests
     {
-
+        /// <summary>
+        /// Creates a valid raffle entry
+        /// </summary>
+        /// <returns>RaffleEntry</returns>
         private RaffleEntry getEntry()
         {
             RaffleEntry entry = new RaffleEntry

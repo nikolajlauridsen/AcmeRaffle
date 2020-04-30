@@ -24,8 +24,8 @@ namespace RaffleLogic.Models
         [Required]
         [Range(18, 200, ErrorMessage = "You must be 18 or older to enter this raffle.")]
         public int Age { get; set; }
-        [Required]
 
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

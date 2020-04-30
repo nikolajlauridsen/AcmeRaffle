@@ -27,7 +27,7 @@ namespace AcmeRaffle.Controllers
 
         // POST: api/RaffleApi
         [HttpPost]
-        public async Task<ActionResult<RaffleEntry>> PostRaffleEntry([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)
+        public async Task<StatusCodeResult> PostRaffleEntry([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)
         {
 
             if (!ModelState.IsValid)

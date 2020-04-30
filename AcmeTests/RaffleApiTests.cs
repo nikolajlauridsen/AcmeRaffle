@@ -66,10 +66,9 @@ namespace AcmeTests
                 getDb("badModel"),
                 getMockValidator(true));
 
-            RaffleEntry entry = getEntry();
-            entry.FirstName = "";
+            controller.ModelState.AddModelError("FirstName", "Must not be null.");
 
-            IStatusCodeActionResult result = await controller.PostRaffleEntry(entry);
+            IStatusCodeActionResult result = await controller.PostRaffleEntry(new RaffleEntry());
             StatusCodeResult statusResult = Assert.IsType<StatusCodeResult>(result);
             Assert.Equal((int)HttpStatusCode.BadRequest, statusResult.StatusCode);
         }

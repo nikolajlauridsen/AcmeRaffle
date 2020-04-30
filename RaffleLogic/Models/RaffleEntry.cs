@@ -12,10 +12,12 @@ namespace RaffleLogic.Models
         public int RaffleEntryId { get; set; }
 
         [Required]
+        [RegularExpression(@"\D+", ErrorMessage = "Name can't contain numbers.")]
         [DisplayName("First name")]
         public string FirstName { get; set; }
 
         [Required]
+        [RegularExpression(@"\D+", ErrorMessage = "Name can't contain numbers.")]
         [DisplayName("Last name")]
         public string LastName { get; set; }
 
@@ -29,6 +31,7 @@ namespace RaffleLogic.Models
 
         public int SoldProductId { get; set; }
 
+        [Required]
         public SoldProduct SoldProduct { get; set; }
     }
 }

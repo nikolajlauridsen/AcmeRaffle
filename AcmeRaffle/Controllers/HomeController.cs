@@ -45,20 +45,6 @@ namespace AcmeRaffle.Controllers
             return View(entries);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Submit([Bind("FirstName,LastName,Email,Age,SoldProduct")] RaffleEntry entry)
-        {
-
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44317/api/RaffleApi");
-            request.Content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
-            using (HttpClient client = new HttpClient())
-            {
-                await client.SendAsync(request);
-            }
-            return RedirectToAction("Index");
-        }
-
         public IActionResult Privacy()
         {
             return View();

@@ -4,6 +4,7 @@
         lockForm();
 
         var data = packData();
+        console.log(data);
         $.ajax({
             type: "POST",
             url: "/api/RaffleApi",

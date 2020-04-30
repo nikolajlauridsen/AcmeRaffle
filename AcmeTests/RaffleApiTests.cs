@@ -60,7 +60,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public async void EnsureBadModelIsCaught()
+        public async void BadModelReturns400()
         {
             RaffleApiController controller = new RaffleApiController(
                 getDb("badModel"),
@@ -71,6 +71,56 @@ namespace AcmeTests
             IStatusCodeActionResult result = await controller.PostRaffleEntry(new RaffleEntry());
             StatusCodeResult statusResult = Assert.IsType<StatusCodeResult>(result);
             Assert.Equal((int)HttpStatusCode.BadRequest, statusResult.StatusCode);
+        }
+
+        [Fact]
+        public async void ValidatorIsUsed()
+        {
+            RaffleApiController controller = new RaffleApiController(
+                getDb("ValidatorTest"),
+                new EntryValidator());
+
+            RaffleEntry entry = getEntry();
+
+            IStatusCodeActionResult result = await controller.PostRaffleEntry(entry);
+            StatusCodeResult statusResult = Assert.IsType<StatusCodeResult>(result);
+            Assert.Equal((int)HttpStatusCode.BadRequest, statusResult.StatusCode);
+        }
+
+        [Fact]
+        public async void EntryAddedToDB()
+        {
+            RaffleDbContext context = getDb("DBTest");
+            RaffleApiController controller = new RaffleApiController(
+                context,
+                getMockValidator(true));
+
+            await controller.PostRaffleEntry(new RaffleEntry());
+            Assert.Equal(1, await context.Entries.CountAsync());
+        }
+
+        [Fact]
+        public async void NoDuplicateSoldProduct()
+        {
+            Guid serial = Guid.NewGuid();
+            SoldProduct product = new SoldProduct{SerialNumber = serial};
+
+            RaffleDbContext context = getDb("NoDupe");
+            context.SoldProducts.Add(product);
+            await context.SaveChangesAsync();
+
+            RaffleEntry entry = getEntry();
+            entry.SoldProduct.SerialNumber = serial;
+
+            RaffleApiController controller = new RaffleApiController(
+                context,
+                new EntryValidator());
+
+            IStatusCodeActionResult result = await controller.PostRaffleEntry(entry);
+            StatusCodeResult statusResult = Assert.IsType<StatusCodeResult>(result);
+            Assert.Equal((int)HttpStatusCode.OK, statusResult.StatusCode);
+
+            Assert.Equal(1, await context.SoldProducts.CountAsync());
         }
     }
 }

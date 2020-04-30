@@ -133,6 +133,18 @@ namespace AcmeTests
         }
 
         [Fact]
+        public void AgeGreaterThanMinimum()
+        {
+            RaffleEntry entry = getEntry();
+            entry.Age = 60;
+            List<ValidationResult> result = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(entry, new ValidationContext(entry), result, true);
+
+            Assert.True(isValid, "Age greater than minimum must pass.");
+        }
+
+        [Fact]
         public void SoldProductRequired()
         {
             RaffleEntry entry = getEntry();

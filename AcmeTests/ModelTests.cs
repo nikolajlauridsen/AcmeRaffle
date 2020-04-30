@@ -26,7 +26,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestValidModel()
+        public void ValidModel()
         {
             RaffleEntry entry = getEntry();
             List<ValidationResult> result = new List<ValidationResult>();
@@ -37,7 +37,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestFirstNameRequired()
+        public void FirstNameRequired()
         {
             RaffleEntry entry = getEntry();
             entry.FirstName = "";
@@ -49,7 +49,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestFirstContainsNoNumber()
+        public void FirstNameContainsNoNumber()
         {
             RaffleEntry entry = getEntry();
             entry.FirstName = "L31f";
@@ -61,7 +61,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestLastNameRequired()
+        public void LastNameRequired()
         {
             RaffleEntry entry = getEntry();
             entry.LastName = "";
@@ -73,7 +73,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestLastContainsNoNumber()
+        public void LastNameContainsNoNumber()
         {
             RaffleEntry entry = getEntry();
             entry.FirstName = "3g3sen";
@@ -85,7 +85,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestEmailRequired()
+        public void EmailRequired()
         {
             RaffleEntry entry = getEntry();
             entry.Email = "";
@@ -97,7 +97,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestInvalidEmail()
+        public void InvalidEmail()
         {
             RaffleEntry entry = getEntry();
             entry.Email = "invalid";
@@ -109,7 +109,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestAgeLessThanMinimum()
+        public void AgeLessThanMinimum()
         {
             RaffleEntry entry = getEntry();
             entry.Age = 17;
@@ -121,7 +121,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestAgeExactlyMinimum()
+        public void AgeExactlyMinimum()
         {
             RaffleEntry entry = getEntry();
             entry.Age = 18;
@@ -133,7 +133,7 @@ namespace AcmeTests
         }
 
         [Fact]
-        public void TestSoldProductRequired()
+        public void SoldProductRequired()
         {
             RaffleEntry entry = getEntry();
             entry.SoldProduct = null;

@@ -12,27 +12,31 @@ This is a sample project made for Umbraco as a part of their apprenticeship proc
 
 The site is a landig page for a raffle held by a fictional company called "Acme Corporation".
 
-The rules of the raffle is as follows
+The rules of the raffle are as follows
 
 1. You need a valid serial number from a purchased product
-2. You can enter twice for each valid serial number
+2. You can enter the raffle twice for each valid serial number
 3. You must be at least 18 years old to enter
 
 ## Getting started
 
 ### Installing ASP.NET Core
 
-This project is made with ASP.NET Core, if you don't have ASP.NET Core installed you can install it easily with the Visual Studio installer. Simply open the Visual Studio installer and select modify on you Visual Studio version, now check the box for ASP.NET and Web development, see image below.
+This project is made with ASP.NET Core, if you don't have ASP.NET Core installed you can install it easily with the Visual Studio installer.
+
+Simply open the Visual Studio installer and select modify on your Visual Studio version, now tick the box for ASP.NET and Web development, see image below.
 
 ![Install asp](https://raw.githubusercontent.com/nikolajlauridsen/AcmeRaffle/master/ReadMeImages/install_asp.jpg)
 
-You can always download and install ASP.NET Core if you don't wish to use Visual Studio, simply use this [link](https://dotnet.microsoft.com/download)
+You can also download and install ASP.NET Core manually, if you don't wish to use Visual Studio, simply use this [link](https://dotnet.microsoft.com/download)
 
-Once you have installed ASP.NET Core you should be ready to go. All required packages should be included in the project when you clone it, and the database is a sqlite database, which means there's no need for database setup, it's all ready to go.
+Once you have installed ASP.NET Core you should be ready to go.
+
+All required packages should be included in the project when you clone it, and the database is a sqlite database, which means there's no need for database setup, it's all ready to go.
 
 ### Launching the site
 
-You can launch the site two different ways, through the commandline and with Visual Studio, with Visual Studio being the easiest way.
+You can launch the site in two different ways, through the commandline or with Visual Studio, Visual Studio being the easiest way.
 
 #### Using Visual Studio
 
@@ -62,7 +66,9 @@ To use the site open a browser and enter the url from the "Now listening on" out
 
 The database comes seeded with 100 valid serial numbers and 11 entries, this will allow you to have a look at the sites features without much hassle.
 
-The valid serial numbers are listen in a newline seperated text file, in the root of the project, called "SerialNumbers.txt". The seeded entries are made using the serial numbers from the very bottom of the list, if you start from the top you should have plenty of serial numbers to have a peruse.
+The valid serial numbers are listed in a newline seperated text file, in the root of the project, called "SerialNumbers.txt".
+
+The seeded entries are made using the serial numbers from the very bottom of the list, if you start from the top you should have plenty of serial numbers to have a peruse.
 
 In order to see the raffle entries list you need to be logged in to the admin user, a default admin user is hardcoded into the project for this exact purpose, the credentials are:
 
